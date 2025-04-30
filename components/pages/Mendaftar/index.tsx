@@ -9,7 +9,7 @@ import {
   Image,
 } from 'react-native';
 
-const Mendaftar = () => {
+const Mendaftar = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Image
@@ -42,7 +42,9 @@ const Mendaftar = () => {
       />
       <Gap height={28} />
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('DaftarProduk')}>
         <Text style={styles.buttonText}>Mendaftar</Text>
       </TouchableOpacity>
     </View>

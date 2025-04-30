@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Mendaftar from './components/pages/Mendaftar/index';
 import Login from './components/pages/Login/index';
+import DaftarProduk from './components/pages/DaftarProduk';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,7 @@ const App = () => {
         <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Mendaftar" component={Mendaftar} />
+        <Stack.Screen name="DaftarProduk" component={DaftarProduk} />
       </Stack.Navigator>
     </NavigationContainer>
   );
