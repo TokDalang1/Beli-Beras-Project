@@ -1,14 +1,42 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, View, StyleSheet} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Mendaftar from './components/pages/Mendaftar/index';
+import Login from './components/pages/Login/index';
+
+const Stack = createNativeStackNavigator();
+
+const SplashScreen = ({navigation}: any) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.replace('Login');
+    }, 3000); // 3 detik
+
+    return () => clearTimeout(timer);
+  }, [navigation]);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.content}>
+        <Image
+          style={styles.logo}
+          source={require('./components/images/beliberas.png')}
+        />
+      </View>
+    </View>
+  );
+};
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <Image
-        style={styles.logo}
-        source={require('./components/images/beliberas.png')}
-      />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Mendaftar" component={Mendaftar} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
@@ -18,11 +46,13 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#DFD0B8',
+    backgroundColor: '#D7DF6A',
   },
-
+  content: {
+    paddingLeft: 48,
+  },
   logo: {
-    resizeMode: 'center',
+    width: 316,
+    height: 128,
   },
 });
