@@ -16,28 +16,44 @@ const Login = ({navigation}) => {
         source={require('../../images/beliberas.png')}
         style={styles.logo}
       />
-      <Gap height={96} />
+      <Gap height={60} />
 
       <Text style={styles.title}>Masuk</Text>
-      <Gap height={34} />
+      <Gap height={17} />
 
-      <View style={styles.inputs}>
-        <TextInput
-          style={styles.input}
-          placeholder="Gmail"
-          placeholderTextColor="#999"
-        />
-      </View>
-      <Gap height={21} />
+      <View style={styles.socialContainer}>
+        <TouchableOpacity style={styles.socialButton}>
+          <Image
+            source={require('../../images/google.png')}
+            style={styles.socialIcon}
+          />
+          <Text style={styles.socialText}>Masuk Menggunakan Google</Text>
+        </TouchableOpacity>
 
-      <View style={styles.inputs}>
-        <TextInput
-          style={styles.input}
-          placeholder="Kata sandi"
-          placeholderTextColor="#999"
-          secureTextEntry
-        />
+        <TouchableOpacity style={styles.socialButton}>
+          <Image
+            source={require('../../images/facebook.png')}
+            style={styles.socialIcon}
+          />
+          <Text style={styles.socialText}>Masuk Menggunakan Facebook</Text>
+        </TouchableOpacity>
       </View>
+
+      <Gap height={20} />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Gmail"
+        placeholderTextColor="#999"
+      />
+      <Gap height={15} />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Kata sandi"
+        placeholderTextColor="#999"
+        secureTextEntry
+      />
       <Gap height={34} />
 
       <TouchableOpacity style={styles.button}>
@@ -46,7 +62,7 @@ const Login = ({navigation}) => {
       <Gap height={12} />
 
       <TouchableOpacity
-        style={styles.buttonOutline}
+        style={styles.button}
         onPress={() => navigation.navigate('Mendaftar')}>
         <Text style={styles.buttonText}>Mendaftar</Text>
       </TouchableOpacity>
@@ -70,28 +86,46 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   title: {
-    fontSize: 55,
+    fontSize: 40,
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  socialContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 15,
+  },
+  socialButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: '#000',
+    borderWidth: 1,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 20,
+    flex: 1,
+    marginHorizontal: 5,
+  },
+  socialIcon: {
+    width: 20,
+    height: 20,
+    marginLeft: 14,
+    resizeMode: 'contain',
+  },
+  socialText: {
+    fontSize: 10,
+    flexShrink: 1,
+    fontWeight: 'bold',
+  },
   input: {
-    height: 36,
+    height: 40,
     borderColor: '#000',
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
+    marginBottom: 10,
   },
-  inputs: {
-    height: 36,
-  },
-
   button: {
-    backgroundColor: '#d6df5e',
-    padding: 10,
-    borderRadius: 20,
-    alignItems: 'center',
-  },
-  buttonOutline: {
     backgroundColor: '#d6df5e',
     padding: 10,
     borderRadius: 20,
