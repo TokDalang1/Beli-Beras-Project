@@ -7,6 +7,7 @@ import Login from './components/pages/Login/index';
 import DaftarProduk from './components/pages/DaftarProduk';
 import DetailProduk from './components/pages/DetailProduk';
 import Keranjang from './components/pages/Keranjang';
+import ShippingAddressScreen from './components/pages/AlamatPengiriman';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +42,10 @@ const App = () => {
         <Stack.Screen name="DaftarProduk" component={DaftarProduk} />
         <Stack.Screen name="DetailProduk" component={DetailProduk} />
         <Stack.Screen name="Keranjang" component={Keranjang} />
+        <Stack.Screen
+          name="ShippingAddressScreen"
+          component={ShippingAddressScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

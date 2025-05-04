@@ -96,7 +96,13 @@ const Keranjang = ({navigation}) => {
           <Text style={styles.totalPrice}>
             Total: Rp{calculateTotal().toLocaleString()}
           </Text>
-          <TouchableOpacity style={styles.checkoutButton}>
+          <TouchableOpacity
+            style={styles.checkoutButton}
+            onPress={() =>
+              navigation.navigate('ShippingAddressScreen', {
+                total: calculateTotal().toLocaleString(),
+              })
+            }>
             <Text style={styles.checkoutButtonText}>Checkout</Text>
           </TouchableOpacity>
         </View>
