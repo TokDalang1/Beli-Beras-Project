@@ -56,7 +56,9 @@ const Login = ({navigation}) => {
       />
       <Gap height={34} />
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('DaftarProduk')}>
         <Text style={styles.buttonText}>Masuk</Text>
       </TouchableOpacity>
       <Gap height={12} />
@@ -66,6 +68,10 @@ const Login = ({navigation}) => {
         onPress={() => navigation.navigate('Mendaftar')}>
         <Text style={styles.buttonText}>Mendaftar</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.buttons}
+        onPress={() => navigation.navigate('DaftarProduk')}
+      />
     </View>
   );
 };
@@ -132,6 +138,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 20,
     alignItems: 'center',
+  },
+  buttons: {
+    paddingRight: 30,
+    // borderWidth: 1,
+    width: 40,
+    height: 40,
   },
   buttonText: {
     fontWeight: 'bold',

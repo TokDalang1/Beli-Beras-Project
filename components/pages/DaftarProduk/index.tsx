@@ -62,10 +62,12 @@ const ProductListScreen = ({navigation}) => {
             source={require('../../images/shopbag.png')}
             style={styles.icon}
           />
-          <Image
-            source={require('../../images/defaultprofile.png')}
-            style={styles.icon}
-          />
+          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Image
+              source={require('../../images/defaultprofile.png')}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.produk}>

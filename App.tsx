@@ -8,13 +8,16 @@ import DaftarProduk from './components/pages/DaftarProduk';
 import DetailProduk from './components/pages/DetailProduk';
 import Keranjang from './components/pages/Keranjang';
 import ShippingAddressScreen from './components/pages/AlamatPengiriman';
+import Profile from './components/pages/Profile';
+import FlashMessage from 'react-native-flash-message';
+import './src/config/Firebase';
 
 const Stack = createNativeStackNavigator();
 
 const SplashScreen = ({navigation}: any) => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace('Login');
+      navigation.replace('Mendaftar');
     }, 3000); // 3 detik
 
     return () => clearTimeout(timer);
@@ -45,8 +48,11 @@ const App = () => {
         <Stack.Screen
           name="ShippingAddressScreen"
           component={ShippingAddressScreen}
+          options={{headerShown: false}}
         />
+        <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
+      <FlashMessage position="top" />
     </NavigationContainer>
   );
 };

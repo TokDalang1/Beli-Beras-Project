@@ -1,5 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Gap from '../../Gap';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth';
+import {showMessage} from 'react-native-flash-message';
 import {
   View,
   Text,
@@ -10,6 +16,50 @@ import {
 } from 'react-native';
 
 const Mendaftar = ({navigation}) => {
+  const [nama, setNama] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const onRegister = async () => {
+    setLoading(true);
+    try {
+      const auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      const user = userCredential.user;
+
+      await updateProfile(user, {
+        displayName: nama,
+      });
+
+      showMessage({
+        message: 'Pendaftaran Berhasil',
+        type: 'success',
+      });
+      navigation.replace('Login');
+    } catch (error) {
+      let errorMessage = 'Pendaftaran Gagal';
+      if (error.code === 'auth/email-already-in-use') {
+        errorMessage = 'Email sudah terdaftar.';
+      } else if (error.code === 'auth/invalid-email') {
+        errorMessage = 'Email tidak valid.';
+      } else if (error.code === 'auth/weak-password') {
+        errorMessage = 'Kata sandi terlalu lemah (minimal 6 karakter).';
+      }
+      showMessage({
+        message: errorMessage,
+        type: 'danger',
+      });
+      console.error('Error Mendaftar:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Image
@@ -22,7 +72,9 @@ const Mendaftar = ({navigation}) => {
       <Gap height={35} />
 
       <View style={styles.socialContainer}>
-        <TouchableOpacity style={styles.socialButton}>
+        <TouchableOpacity
+          style={styles.socialButton}
+          onPress={() => alert('Fitur Daftar Google belum tersedia')}>
           <Image
             source={require('../../images/google.png')}
             style={styles.socialIcon}
@@ -30,7 +82,9 @@ const Mendaftar = ({navigation}) => {
           <Text style={styles.socialText}>Daftar Menggunakan Google</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.socialButton}>
+        <TouchableOpacity
+          style={styles.socialButton}
+          onPress={() => alert('Fitur Daftar Facebook belum tersedia')}>
           <Image
             source={require('../../images/facebook.png')}
             style={styles.socialIcon}
@@ -45,6 +99,8 @@ const Mendaftar = ({navigation}) => {
         style={styles.input}
         placeholder="Masukkan nama"
         placeholderTextColor="#999"
+        value={nama}
+        onChangeText={text => setNama(text)}
       />
       <Gap height={19} />
 
@@ -52,6 +108,8 @@ const Mendaftar = ({navigation}) => {
         style={styles.input}
         placeholder="Gmail"
         placeholderTextColor="#999"
+        value={email}
+        onChangeText={text => setEmail(text)}
       />
       <Gap height={19} />
 
@@ -60,14 +118,23 @@ const Mendaftar = ({navigation}) => {
         placeholder="Kata sandi"
         placeholderTextColor="#999"
         secureTextEntry
+        value={password}
+        onChangeText={text => setPassword(text)}
       />
       <Gap height={25} />
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('DaftarProduk')}>
-        <Text style={styles.buttonText}>Mendaftar</Text>
+        onPress={onRegister}
+        disabled={loading}>
+        <Text style={styles.buttonText}>
+          {loading ? 'Mendaftarkan...' : 'Mendaftar'}
+        </Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.buttons}
+        onPress={() => navigation.navigate('Login')}
+      />
     </View>
   );
 };
@@ -111,7 +178,6 @@ const styles = StyleSheet.create({
   socialIcon: {
     width: 20,
     height: 20,
-
     resizeMode: 'contain',
     paddingLeft: 9,
   },
@@ -133,6 +199,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 20,
     alignItems: 'center',
+  },
+  buttons: {
+    paddingRight: 30,
+    // borderWidth: 1,
+    width: 40,
+    height: 40,
   },
   buttonText: {
     fontWeight: 'bold',
