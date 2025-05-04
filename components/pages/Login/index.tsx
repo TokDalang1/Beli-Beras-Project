@@ -16,10 +16,10 @@ const Login = ({navigation}) => {
         source={require('../../images/beliberas.png')}
         style={styles.logo}
       />
-      <Gap height={60} />
+      <Gap height={58} />
 
       <Text style={styles.title}>Masuk</Text>
-      <Gap height={17} />
+      <Gap height={30} />
 
       <View style={styles.socialContainer}>
         <TouchableOpacity style={styles.socialButton}>
@@ -39,14 +39,14 @@ const Login = ({navigation}) => {
         </TouchableOpacity>
       </View>
 
-      <Gap height={20} />
+      <Gap height={25} />
 
       <TextInput
         style={styles.input}
         placeholder="Gmail"
         placeholderTextColor="#999"
       />
-      <Gap height={15} />
+      <Gap height={21} />
 
       <TextInput
         style={styles.input}
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   socialContainer: {
+    height: 30,
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 15,
@@ -109,13 +110,15 @@ const styles = StyleSheet.create({
   socialIcon: {
     width: 20,
     height: 20,
-    marginLeft: 14,
+
     resizeMode: 'contain',
+    paddingLeft: 9,
   },
   socialText: {
-    fontSize: 10,
+    fontSize: 9,
     flexShrink: 1,
     fontWeight: 'bold',
+    paddingLeft: 18,
   },
   input: {
     height: 40,
@@ -123,7 +126,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
-    marginBottom: 10,
   },
   button: {
     backgroundColor: '#d6df5e',

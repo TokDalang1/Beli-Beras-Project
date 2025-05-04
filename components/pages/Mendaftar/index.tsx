@@ -16,10 +16,10 @@ const Mendaftar = ({navigation}) => {
         source={require('../../images/beliberas.png')}
         style={styles.logo}
       />
-      <Gap height={60} />
+      <Gap height={42} />
 
       <Text style={styles.title}>Daftar</Text>
-      <Gap height={20} />
+      <Gap height={35} />
 
       <View style={styles.socialContainer}>
         <TouchableOpacity style={styles.socialButton}>
@@ -113,12 +113,13 @@ const styles = StyleSheet.create({
     height: 20,
 
     resizeMode: 'contain',
-    marginLeft: 14,
+    paddingLeft: 9,
   },
   socialText: {
     fontSize: 10,
     flexShrink: 1,
     fontWeight: 'bold',
+    paddingLeft: 18,
   },
   input: {
     height: 40,

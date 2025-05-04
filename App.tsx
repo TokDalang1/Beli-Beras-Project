@@ -5,6 +5,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Mendaftar from './components/pages/Mendaftar/index';
 import Login from './components/pages/Login/index';
 import DaftarProduk from './components/pages/DaftarProduk';
+import DetailProduk from './components/pages/DetailProduk';
+import Keranjang from './components/pages/Keranjang';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +39,8 @@ const App = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Mendaftar" component={Mendaftar} />
         <Stack.Screen name="DaftarProduk" component={DaftarProduk} />
+        <Stack.Screen name="DetailProduk" component={DetailProduk} />
+        <Stack.Screen name="Keranjang" component={Keranjang} />
       </Stack.Navigator>
     </NavigationContainer>
   );

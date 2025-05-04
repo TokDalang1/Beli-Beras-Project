@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#DCE775',
-    paddingVertical: 20,
+    height: 61,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
     borderColor: '#ccc',
@@ -116,7 +116,14 @@ const styles = StyleSheet.create({
   produk: {
     padding: 10,
   },
-  logo: {width: 100, height: 40, resizeMode: 'contain'},
+  logo: {
+    width: 100,
+    height: 40,
+    resizeMode: 'contain',
+    paddingLeft: 11,
+    paddingTop: 12,
+    paddingBottom: 9,
+  },
   icons: {
     flexDirection: 'row',
     gap: 16,
