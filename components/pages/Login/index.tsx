@@ -1,5 +1,5 @@
-import React from 'react';
-import Gap from '../../Gap';
+import React, {useState} from 'react';
+import {auth} from '../../../src/config/Firebase';
 import {
   View,
   Text,
@@ -8,75 +8,89 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import {showMessage} from 'react-native-flash-message';
+import Gap from '../../Gap';
 
-const Login = ({navigation}) => {
+const Masuk = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const onLogin = async () => {
+    setLoading(true);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+
+      showMessage({
+        message: 'Login Berhasil',
+        type: 'success',
+      });
+
+      navigation.replace('DaftarProduk');
+    } catch (error) {
+      let errorMessage = 'Login Gagal';
+      if (error.code === 'auth/user-not-found') {
+        errorMessage = 'Pengguna tidak ditemukan.';
+      } else if (error.code === 'auth/wrong-password') {
+        errorMessage = 'Password salah.';
+      }
+      showMessage({
+        message: errorMessage,
+        type: 'danger',
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Image
         source={require('../../images/beliberas.png')}
         style={styles.logo}
       />
-      <Gap height={58} />
+      <Gap height={42} />
 
       <Text style={styles.title}>Masuk</Text>
-      <Gap height={30} />
-
-      <View style={styles.socialContainer}>
-        <TouchableOpacity style={styles.socialButton}>
-          <Image
-            source={require('../../images/google.png')}
-            style={styles.socialIcon}
-          />
-          <Text style={styles.socialText}>Masuk Menggunakan Google</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.socialButton}>
-          <Image
-            source={require('../../images/facebook.png')}
-            style={styles.socialIcon}
-          />
-          <Text style={styles.socialText}>Masuk Menggunakan Facebook</Text>
-        </TouchableOpacity>
-      </View>
-
-      <Gap height={25} />
+      <Gap height={35} />
 
       <TextInput
         style={styles.input}
         placeholder="Gmail"
         placeholderTextColor="#999"
+        value={email}
+        onChangeText={setEmail}
       />
-      <Gap height={21} />
+      <Gap height={19} />
 
       <TextInput
         style={styles.input}
         placeholder="Kata sandi"
         placeholderTextColor="#999"
         secureTextEntry
+        value={password}
+        onChangeText={setPassword}
       />
-      <Gap height={34} />
+      <Gap height={25} />
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('DaftarProduk')}>
-        <Text style={styles.buttonText}>Masuk</Text>
+        onPress={onLogin}
+        disabled={loading}>
+        <Text style={styles.buttonText}>{loading ? 'Masuk...' : 'Masuk'}</Text>
       </TouchableOpacity>
-      <Gap height={12} />
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Mendaftar')}>
-        <Text style={styles.buttonText}>Mendaftar</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Mendaftar')}>
+        <Text style={{marginTop: 16, textAlign: 'center'}}>
+          Belum punya akun? Daftar
+        </Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.buttons}
-        onPress={() => navigation.navigate('DaftarProduk')}
-      />
     </View>
   );
 };
 
-export default Login;
+export default Masuk;
 
 const styles = StyleSheet.create({
   container: {
@@ -96,36 +110,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  socialContainer: {
-    height: 30,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 15,
-  },
-  socialButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: '#000',
-    borderWidth: 1,
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-    borderRadius: 20,
-    flex: 1,
-    marginHorizontal: 5,
-  },
-  socialIcon: {
-    width: 20,
-    height: 20,
-
-    resizeMode: 'contain',
-    paddingLeft: 9,
-  },
-  socialText: {
-    fontSize: 9,
-    flexShrink: 1,
-    fontWeight: 'bold',
-    paddingLeft: 18,
-  },
   input: {
     height: 40,
     borderColor: '#000',
@@ -138,12 +122,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 20,
     alignItems: 'center',
-  },
-  buttons: {
-    paddingRight: 30,
-    // borderWidth: 1,
-    width: 40,
-    height: 40,
   },
   buttonText: {
     fontWeight: 'bold',

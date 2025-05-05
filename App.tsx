@@ -10,7 +10,7 @@ import Keranjang from './components/pages/Keranjang';
 import ShippingAddressScreen from './components/pages/AlamatPengiriman';
 import Profile from './components/pages/Profile';
 import FlashMessage from 'react-native-flash-message';
-import './src/config/Firebase';
+// import './src/config/Firebase';
 
 const Stack = createNativeStackNavigator();
 

@@ -1,10 +1,7 @@
 import React, {useState} from 'react';
+import {auth} from '../../../src/config/Firebase';
 import Gap from '../../Gap';
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from 'firebase/auth';
+import {createUserWithEmailAndPassword, updateProfile} from 'firebase/auth';
 import {showMessage} from 'react-native-flash-message';
 import {
   View,
@@ -22,9 +19,17 @@ const Mendaftar = ({navigation}) => {
   const [loading, setLoading] = useState(false);
 
   const onRegister = async () => {
+    if (!nama || !email || !password) {
+      showMessage({
+        message: 'Semua kolom wajib diisi.',
+        type: 'warning',
+      });
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     try {
-      const auth = getAuth();
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
